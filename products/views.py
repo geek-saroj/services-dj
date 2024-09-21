@@ -1,4 +1,6 @@
 from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404 , redirect
 from .models import Product , Carousel
 from .serializers import ProductSerializer , carouselSerializer
@@ -7,14 +9,19 @@ from .forms import ProductForm , CarouselForm
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class carouselViewSet(viewsets.ModelViewSet):
+    
     queryset = Carousel.objects.all()
     serializer_class = carouselSerializer
-def product_list(request):
+
+def product_list(self, request):
+
     products = Product.objects.all()
     return render(request, 'products/product_list.html', {'products': products})
+
 
 def homeindex(request):
     carousel = Carousel.objects.all()

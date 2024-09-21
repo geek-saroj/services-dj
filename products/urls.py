@@ -4,8 +4,8 @@ from .views import ProductViewSet , product_list, product_detail , create_produc
 
 
 router = DefaultRouter()
-# router.register(r'products', ProductViewSet)
-router.register(r'carousel', carouselViewSet)
+router.register(r'products', ProductViewSet)
+# router.register(r'carousel', carouselViewSet)
 
 
 
@@ -14,7 +14,7 @@ router.register(r'carousel', carouselViewSet)
 
 urlpatterns = [
     path('', homeindex, name='Home'),
-    path('api/', include(router.urls)),
+    path('', include(router.urls)),
     path('all/', product_list, name='product_list'),
     path('products/<int:id>/', product_detail, name='product_detail'),
     path('create/', create_product, name='create_product'),
